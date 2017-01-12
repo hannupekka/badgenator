@@ -1,0 +1,35 @@
+@import '~styles/main';
+
+.header {
+  background-color: @color__gray--light;
+  padding: @padding;
+}
+
+.title {
+  margin-top: 0;
+}
+
+.navigation {
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      display: inline-block;
+    }
+
+    li + li {
+      margin-left: @padding * 2;
+    }
+  }
+}
+
+.logo {
+  display: none;
+}
+
+@media @md {
+  .logo {
+    display: block;
+  }
+}

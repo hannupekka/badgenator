@@ -1,0 +1,64 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "plugins": [
+    "flowtype"
+  ],
+  "rules": {
+    "no-global-assign": 0,
+    "no-underscore-dangle": 0,
+    "new-cap": 0,
+    "no-unsafe-negation": 0,
+    "comma-dangle": 0,
+    "arrow-body-style": 0,
+    "no-duplicate-imports": 0,
+    "import/no-unresolved": 0,
+    "import/no-extraneous-dependencies": [
+      "error", {
+        "devDependencies": true,
+      }
+    ],
+    "react/jsx-filename-extension": [
+      "error", {
+        "extensions": [
+          ".js"
+        ]
+      }
+    ],
+    "react/sort-comp": [1, {
+      order: [
+        'props',
+        'state',
+        'type-annotations',
+        'static-methods',
+        'lifecycle',
+        'everything-else',
+        'render'
+      ]
+    }],
+    "react/require-extension": 0,
+    "react/self-closing-comp": 0,
+    "react/jsx-key": 2,
+    "flowtype/define-flow-type": 2,
+    "generator-star-spacing": 0
+  },
+  "globals": {
+    "describe": false,
+    "it": false,
+    "before": false,
+    "beforeEach": false,
+    "after": false,
+    "afterEach": false,
+    "expect": false
+  },
+  "env": {
+    "browser": true
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack/webpack.config.dev.js"
+      }
+    }
+  }
+}

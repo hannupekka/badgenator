@@ -1,0 +1,22 @@
+[ignore]
+.*/node_modules/fbjs/.*
+.*/node_modules/reqwest/.*
+.*/node_modules/babel-plugin-flow-react-proptypes/.*
+
+[include]
+.*/src/**/*.js
+
+[libs]
+tools/flow/types
+
+[options]
+suppress_comment= \\(.\\|\n\\)*\\$FlowIssue
+suppress_comment= \\(.\\|\n\\)*\\$FixMe
+module.name_mapper='^assets\/\(.*\)$' -> '<PROJECT_ROOT>/src/assets/\1'
+module.name_mapper='^components\/\(.*\)$' -> '<PROJECT_ROOT>/src/components/\1'
+module.name_mapper='^constants\/\(.*\)$' -> '<PROJECT_ROOT>/src/constants/\1'
+module.name_mapper='^containers\/\(.*\)$' -> '<PROJECT_ROOT>/src/containers/\1'
+module.name_mapper='^redux\/\(.*\)$' -> '<PROJECT_ROOT>/src/redux/\1'
+module.name_mapper='^store\/\(.*\)$' -> '<PROJECT_ROOT>/src/store/\1'
+module.name_mapper='^styles\/\(.*\)$' -> '<PROJECT_ROOT>/tools/flow/mappings/CSSModule.js'
+module.name_mapper='^utils\/\(.*\)$' -> '<PROJECT_ROOT>/src/utils/\1'
