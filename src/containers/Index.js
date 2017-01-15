@@ -2,35 +2,62 @@
 import styles from 'styles/containers/Index';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import type { Map } from 'immutable';
 import Badge from 'components/Badge';
+import ColorPicker from 'components/ColorPicker';
 import CSSModules from 'react-css-modules';
 
 type Props = {
+  ui: Map<string, any>
 }
 
+// eslint-disable-next-line
 class Index extends Component {
   props: Props;
 
   render() {
+    const { ui } = this.props;
+
     return (
       <div>
         <div styleName="top">
           <div styleName="options">
-            <div styleName="option__group">
-              <div styleName="option__label">Header background color</div>
-            </div>
-            <div styleName="option__group">
-              <div styleName="option__label">Header text color</div>
-            </div>
-            <div styleName="option__group">
-              <div styleName="option__label">Name color</div>
-            </div>
-            <div styleName="option__group">
-              <div styleName="option__label">Footer background color</div>
-            </div>
-            <div styleName="option__group">
-              <div styleName="option__label">Footer text color</div>
-            </div>
+            <ColorPicker
+              color={ui.get('headerBackground')}
+              colorName="headerBackground"
+            >
+              Header background color
+            </ColorPicker>
+            <ColorPicker
+              color={ui.get('headerText')}
+              colorName="headerText"
+            >
+              Header text color
+            </ColorPicker>
+            <ColorPicker
+              color={ui.get('nameBackground')}
+              colorName="nameBackground"
+            >
+              Name background color
+            </ColorPicker>
+            <ColorPicker
+              color={ui.get('nameText')}
+              colorName="nameText"
+            >
+              Name text color
+            </ColorPicker>
+            <ColorPicker
+              color={ui.get('footerBackground')}
+              colorName="footerBackground"
+            >
+              Footer background color
+            </ColorPicker>
+            <ColorPicker
+              color={ui.get('footerText')}
+              colorName="footerText"
+            >
+              Footer text color
+            </ColorPicker>
           </div>
           <div styleName="preview">
             <Badge
@@ -52,10 +79,8 @@ class Index extends Component {
   }
 }
 
-Index.propTypes = {
-};
-
-const mapState = () => ({
+const mapState = state => ({
+  ui: state.ui
 });
 
 const mapActions = {

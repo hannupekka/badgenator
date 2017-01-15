@@ -1,0 +1,35 @@
+@import '~styles/main';
+
+.wrapper {
+  align-items: center;
+  display: flex;
+  padding: @padding;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.color {
+  height: 2rem;
+  width: 2rem;
+  margin-right: @padding;
+  border: 1px solid #000;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.picker__wrapper {
+  position: absolute;
+  z-index: 2;
+}
+
+.picker__cover {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}

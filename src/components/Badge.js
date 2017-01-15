@@ -1,6 +1,6 @@
 // @flow
 import styles from 'styles/components/Badge';
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { pure } from 'recompose';
 import { connect } from 'react-redux';
 import type { Component } from 'recompose';
@@ -32,6 +32,7 @@ const Badge: Component<Props> = (props: Props): ElementType => {
       <div
         styleName="badge__name"
         style={{
+          backgroundColor: props.ui.get('nameBackground'),
           color: props.ui.get('nameText')
         }}
       >
@@ -52,14 +53,6 @@ const Badge: Component<Props> = (props: Props): ElementType => {
       </div>
     </div>
   );
-};
-
-Badge.propTypes = {
-  headerText: PropTypes.string.isRequired,
-  firstname: PropTypes.string.isRequired,
-  lastname: PropTypes.string.isRequired,
-  footerText: PropTypes.string.isRequired,
-  ui: PropTypes.object.isRequired,
 };
 
 const mapState = state => ({
