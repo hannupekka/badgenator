@@ -9,9 +9,12 @@
 }
 
 .option__group {
-  &+& {
-    margin-top: @padding;
-  }
+  margin-top: @padding;
+}
+
+.option__label {
+  font-weight: bold;
+  margin-bottom: @padding / 2;
 }
 
 .preview {
@@ -24,8 +27,11 @@
 
 .textarea {
   composes: base--input;
-  width: 100%;
   height: 200px;
+}
+
+.input {
+  composes: base--input;
 }
 
 .output {

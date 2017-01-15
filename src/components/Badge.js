@@ -15,39 +15,45 @@ type Props = {
 }
 
 const Badge: Component<Props> = (props: Props): ElementType => {
+  const { ui } = props;
+
   return (
     <div styleName="badge">
       <div
-        styleName="badge__header"
+        styleName="header"
         style={{
-          backgroundColor: props.ui.get('headerBackground')
+          backgroundColor: ui.get('headerBackground')
         }}
       >
-        <span
+        <div styleName="header__logo">
+          <img src={ui.get('logoUrl')} alt="Logo" />
+        </div>
+        <div
+          styleName="header__text"
           style={{
-            color: props.ui.get('headerText')
+            color: ui.get('headerText')
           }}
-        >{props.headerText}</span>
+        >{props.headerText}</div>
       </div>
       <div
-        styleName="badge__name"
+        styleName="name"
         style={{
-          backgroundColor: props.ui.get('nameBackground'),
-          color: props.ui.get('nameText')
+          backgroundColor: ui.get('nameBackground'),
+          color: ui.get('nameText')
         }}
       >
-        <span styleName="badge__name--first">{props.firstname}</span>
-        <span styleName="badge__name--last">{props.lastname}</span>
+        <span styleName="name--first">{props.firstname}</span>
+        <span styleName="name--last">{props.lastname}</span>
       </div>
       <div
-        styleName="badge__footer"
+        styleName="footer"
         style={{
-          backgroundColor: props.ui.get('footerBackground')
+          backgroundColor: ui.get('footerBackground')
         }}
       >
         <span
           style={{
-            color: props.ui.get('footerText')
+            color: ui.get('footerText')
           }}
         >{props.footerText}</span>
       </div>

@@ -4,24 +4,45 @@
   border: 1px solid #000;
 }
 
-.badge__header {
+.header {
   padding: @padding;
+  display: flex;
+  align-items: center;
 }
 
-.badge__name {
+.header__logo {
+  background: red;
+  flex: 1;
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+.header__text {
+  flex: 9;
+  text-align: right;
+}
+
+.name {
   padding: @padding;
   background: #fff;
 }
 
-.badge__name--first,
-.badge__name--last {
+.name--first,
+.name--last {
   display: block;
+  text-transform: uppercase;
 }
 
-.badge__name--first {
+.name--first {
   font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: @padding / 2;
 }
 
-.badge__footer {
+.footer {
   padding: @padding;
+  text-align: right;
 }

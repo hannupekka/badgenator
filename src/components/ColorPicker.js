@@ -58,6 +58,7 @@ class ColorPicker extends Component {
         <ChromePicker
           color={color}
           onChange={onChangeColor}
+          disableAlpha
         />
       </div>
     );

@@ -5,18 +5,35 @@ import { connect } from 'react-redux';
 import type { Map } from 'immutable';
 import Badge from 'components/Badge';
 import ColorPicker from 'components/ColorPicker';
+import * as UiActions from 'redux/modules/ui';
 import CSSModules from 'react-css-modules';
 
 type Props = {
-  ui: Map<string, any>
+  ui: Map<string, any>,
+  changeLogo: Function
 }
 
 // eslint-disable-next-line
 class Index extends Component {
   props: Props;
 
+  bindUrl: Function;
+  url: HTMLInputElement;
+
+  constructor(props: Object) {
+    super(props);
+
+    this.bindUrl = (c) => (this.url = c);
+  }
+
+  changeLogo = (): void => {
+    const url = this.url.value;
+    this.props.changeLogo(url);
+  }
+
   render() {
     const { ui } = this.props;
+    const { bindUrl, changeLogo } = this;
 
     return (
       <div>
@@ -66,6 +83,18 @@ class Index extends Component {
               lastname="Last name"
               footerText="Footer text"
             />
+            <div styleName="option__group">
+              <div styleName="option__label">
+                Logo URL
+              </div>
+              <input
+                type="text"
+                styleName="input"
+                value={ui.get('logoUrl')}
+                ref={bindUrl}
+                onChange={changeLogo}
+              />
+            </div>
           </div>
         </div>
         <div styleName="data">
@@ -84,6 +113,7 @@ const mapState = state => ({
 });
 
 const mapActions = {
+  changeLogo: UiActions.changeLogo
 };
 
 export default connect(
