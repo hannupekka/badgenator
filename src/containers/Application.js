@@ -20,6 +20,17 @@ class Application extends Component {
         <section styleName="content">
           {children}
         </section>
+        <section styleName="footer">
+          <a
+            styleName="project"
+            href="https://github.com/hannupekka/badgenator"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Check out this project in GitHub
+            <i className="fa fa-github" aria-hidden="true"></i>
+          </a>
+        </section>
       </div>
     );
   }

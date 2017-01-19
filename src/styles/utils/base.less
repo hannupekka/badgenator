@@ -8,5 +8,20 @@
 }
 
 .base--button {
+  font-size: 80%;
   padding: (@padding / 2) @padding;
+  background-color: @color__purple--dark;
+  color: #fff;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: 1px 1px 1px #000;
+
+  i {
+    margin-right: @padding / 2;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: lighten(@color__purple--dark, 5%);
+  }
 }

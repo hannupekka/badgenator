@@ -1,12 +1,21 @@
 @import '~styles/main';
 
 .header {
-  background-color: @color__gray--light;
-  padding: @padding;
+  background-color: @color__purple--dark;
+  background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.20' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+  padding: (@padding * 3) (@padding * 2);
+  text-align: center;
+  text-shadow: 1px 1px 5px #000;
+  border-bottom: 1px solid #fff;
 }
 
-.title {
+.title,
+.title--small {
   margin: 0;
+}
+
+.title--small {
+  margin-top: @padding / 2;
 }
 
 .navigation {
@@ -26,12 +35,6 @@
 
 .logo {
   display: none;
-}
-
-@media @md {
-  .logo {
-    display: block;
-  }
 }
 
 @media print {

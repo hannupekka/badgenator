@@ -43,7 +43,7 @@ class Index extends Component {
     const names = data.get('names');
 
     if (names.size === 0) {
-      return <div>Generate badges with button above.</div>;
+      return <div>Fill in data and generate badges with button above.</div>;
     }
 
     return names.map(name => (
@@ -57,9 +57,31 @@ class Index extends Component {
     )).toJS();
   }
 
+  maybeRenderPrintButton = (): ?ElementType => {
+    const { data } = this.props;
+
+    if (data.get('names').size === 0) {
+      return null;
+    }
+
+    return (
+      <button styleName="button" onClick={window.print}>
+        <i className="fa fa-print" aria-hidden="true"></i>
+        Print
+      </button>
+    );
+  }
+
   setNames = (): void => {
     const { data } = this.props;
-    const input = this.names.value.split('\n');
+
+    const inputValue = this.names.value;
+
+    if (inputValue.length === 0) {
+      return;
+    }
+
+    const input = inputValue.split('\n');
     if (input.length === 0) {
       return;
     }
@@ -74,12 +96,23 @@ class Index extends Component {
       };
     });
 
+    if (names.length === 0) {
+      return;
+    }
+
     this.props.setNames(names);
   }
 
   render() {
     const { ui } = this.props;
-    const { bindNames, bindUrl, changeLogo, maybeRenderBadges, setNames } = this;
+    const {
+      bindNames,
+      bindUrl,
+      changeLogo,
+      maybeRenderBadges,
+      maybeRenderPrintButton,
+      setNames
+    } = this;
 
     return (
       <div>
@@ -159,13 +192,18 @@ class Index extends Component {
           <button
             styleName="button"
             onClick={setNames}
-          >Generate</button>
+          >
+            <i className="fa fa-refresh" aria-hidden="true"></i>
+            Generate
+          </button>
+          {maybeRenderPrintButton()}
         </div>
         <div>
           <h2 styleName="title--top">Badges</h2>
           <div styleName="badges" className="cf">
             {maybeRenderBadges()}
           </div>
+          {maybeRenderPrintButton()}
         </div>
       </div>
     );

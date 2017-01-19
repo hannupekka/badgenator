@@ -9,6 +9,7 @@ const Header: Component<{}> = (): ElementType => {
   return (
     <header styleName="header">
       <h1 styleName="title">Badgenator</h1>
+      <h3 styleName="title--small">Generate name badges from your data!</h3>
     </header>
   );
 };

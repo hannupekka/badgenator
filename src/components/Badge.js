@@ -7,10 +7,10 @@ import type { Component } from 'recompose';
 import CSSModules from 'react-css-modules';
 
 type Props = {
-  headerText: string,
-  firstname: string,
-  lastname: string,
-  footerText: string,
+  headerText: ?string,
+  firstname: ?string,
+  lastname: ?string,
+  footerText: ?string,
   ui: Object,
 }
 
