@@ -4,8 +4,18 @@ body {
   background-color: @color__gray--dark;
   padding: 0;
   margin: 0;
+  -webkit-print-color-adjust: exact;
 }
 
 .content {
   padding: @padding * 2;
+}
+
+@media print {
+  body {
+    background-color: transparent;
+  }
+  .content {
+    padding: 0;
+  }
 }

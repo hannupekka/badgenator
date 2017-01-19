@@ -3,26 +3,33 @@ import styles from 'styles/containers/Index';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import type { Map } from 'immutable';
+import cuid from 'cuid';
 import Badge from 'components/Badge';
 import ColorPicker from 'components/ColorPicker';
+import * as DataActions from 'redux/modules/data';
 import * as UiActions from 'redux/modules/ui';
 import CSSModules from 'react-css-modules';
 
 type Props = {
+  data: Map<string, any>,
   ui: Map<string, any>,
-  changeLogo: Function
+  changeLogo: Function,
+  setNames: Function
 }
 
 // eslint-disable-next-line
 class Index extends Component {
   props: Props;
 
+  bindNames: Function;
+  names: HTMLInputElement;
   bindUrl: Function;
   url: HTMLInputElement;
 
   constructor(props: Object) {
     super(props);
 
+    this.bindNames = (c) => (this.names = c);
     this.bindUrl = (c) => (this.url = c);
   }
 
@@ -31,14 +38,54 @@ class Index extends Component {
     this.props.changeLogo(url);
   }
 
+  maybeRenderBadges = (): ElementType => {
+    const { data } = this.props;
+    const names = data.get('names');
+
+    if (names.size === 0) {
+      return <div>Generate badges with button above.</div>;
+    }
+
+    return names.map(name => (
+      <Badge
+        key={cuid()}
+        headerText={name.get('headerText')}
+        firstname={name.get('firstname')}
+        lastname={name.get('lastname')}
+        footerText={name.get('footerText')}
+      />
+    )).toJS();
+  }
+
+  setNames = (): void => {
+    const { data } = this.props;
+    const input = this.names.value.split('\n');
+    if (input.length === 0) {
+      return;
+    }
+
+    const names = input.map(name => {
+      const [headerText, firstname, lastname, footerText] = name.split(data.get('separator'));
+      return {
+        headerText,
+        firstname,
+        lastname,
+        footerText
+      };
+    });
+
+    this.props.setNames(names);
+  }
+
   render() {
     const { ui } = this.props;
-    const { bindUrl, changeLogo } = this;
+    const { bindNames, bindUrl, changeLogo, maybeRenderBadges, setNames } = this;
 
     return (
       <div>
         <div styleName="top">
           <div styleName="options">
+            <h2 styleName="title--top">Colors</h2>
             <ColorPicker
               color={ui.get('headerBackground')}
               colorName="headerBackground"
@@ -77,6 +124,7 @@ class Index extends Component {
             </ColorPicker>
           </div>
           <div styleName="preview">
+            <h2 styleName="title--top">Preview</h2>
             <Badge
               headerText="Header text"
               firstname="First name"
@@ -84,6 +132,7 @@ class Index extends Component {
               footerText="Footer text"
             />
             <div styleName="option__group">
+              <h2 styleName="title--top">Other settings</h2>
               <div styleName="option__label">
                 Logo URL
               </div>
@@ -98,10 +147,25 @@ class Index extends Component {
           </div>
         </div>
         <div styleName="data">
-          <textarea styleName="textarea"></textarea>
+          <h2 styleName="title--top">Names</h2>
+          <textarea
+            styleName="textarea"
+            ref={bindNames}
+            placeholder={'Header text;Firstname;Lastname;Footer text'}
+          ></textarea>
+          <div styleName="help">
+            Separate fields with ; and each badge data on its own line.
+          </div>
+          <button
+            styleName="button"
+            onClick={setNames}
+          >Generate</button>
         </div>
-        <div styleName="output">
-          output
+        <div>
+          <h2 styleName="title--top">Badges</h2>
+          <div styleName="badges" className="cf">
+            {maybeRenderBadges()}
+          </div>
         </div>
       </div>
     );
@@ -109,10 +173,12 @@ class Index extends Component {
 }
 
 const mapState = state => ({
+  data: state.data,
   ui: state.ui
 });
 
 const mapActions = {
+  setNames: DataActions.setNames,
   changeLogo: UiActions.changeLogo
 };
 

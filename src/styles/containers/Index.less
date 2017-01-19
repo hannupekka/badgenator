@@ -30,10 +30,36 @@
   height: 200px;
 }
 
+.help {
+  font-size: 80%;
+}
+
 .input {
   composes: base--input;
 }
 
-.output {
-  background: lightskyblue;
+.button {
+  composes: base--button;
+  margin-top: @padding;
+}
+
+.badges {
+  margin-top: -(@padding / 2);
+  & > div {
+    float: left;
+    margin: (@padding / 2) (@padding / 2) 0 0;
+  }
+}
+
+.title--top {
+  margin-top: 0;
+}
+
+@media print {
+  .top,
+  .data,
+  .help,
+  .title--top {
+    display: none;
+  }
 }
