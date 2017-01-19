@@ -53,7 +53,7 @@ npm run build
 
 This project is a grateful recipient of the [Futurice Open Source sponsorship program](http://futurice.com/blog/sponsoring-free-time-open-source-activities).
 
-Also thanks to [@anttti](https://github.com/anttti/) for his [yet-another-redux-example](https://github.com/anttti/yet-another-redux-example) and providing base for this project.
+Also thanks to [@anttti](https://github.com/anttti/) for his [yet-another-redux-example](https://github.com/anttti/yet-another-redux-example) and [badge-generator](https://github.com/hhkaos/badge-generator) for inspiration.
 
 ## License
 
