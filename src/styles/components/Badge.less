@@ -2,32 +2,43 @@
 
 .badge {
   border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  width: 8.6cm;
+  height: 5.9cm;
 }
 
 .header {
   padding: @padding;
   display: flex;
+  flex: 2;
   align-items: center;
 }
 
 .header__logo {
-  background: red;
+  display: flex;
   flex: 1;
+  height: 100%;
 
   img {
     max-width: 100%;
+    max-height: 100%;
     display: block;
   }
 }
 
 .header__text {
-  flex: 9;
+  flex: 1;
   text-align: right;
 }
 
 .name {
   padding: @padding;
   background: #fff;
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .name--first,
@@ -45,4 +56,8 @@
 .footer {
   padding: @padding;
   text-align: right;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
 }

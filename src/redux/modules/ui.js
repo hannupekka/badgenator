@@ -26,7 +26,7 @@ export const initialState = fromJS({
   nameText: '#000000',
   footerBackground: '#515E8B',
   footerText: '#FFFFFF',
-  logoUrl: 'https://placehold.it/150/636987/ffffff?text=LOGO'
+  logoUrl: 'https://placehold.it/300x100/636987/ffffff?text=LOGO'
 });
 
 export default function reducer(state: StateType = initialState, action: ActionType): StateType {
