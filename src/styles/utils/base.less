@@ -4,13 +4,13 @@
 .base--input {
   padding: @padding / 2;
   width: 100%;
-  border: 1px solid #000;
+  border: 1px solid @color__purple;
 }
 
 .base--button {
+  background-color: @color__purple;
   font-size: 80%;
   padding: (@padding / 2) @padding;
-  background-color: @color__purple--dark;
   color: #fff;
   text-transform: uppercase;
   border: none;
@@ -22,6 +22,6 @@
 
   &:hover {
     cursor: pointer;
-    background-color: lighten(@color__purple--dark, 5%);
+    background-color: darken(@color__purple, 5%);
   }
 }

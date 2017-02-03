@@ -20,13 +20,13 @@ export const changeLogo = (url: string): ActionType => ({
 });
 
 export const initialState = fromJS({
-  headerBackground: '#424862',
+  headerBackground: '#D90429',
   headerText: '#FFFFFF',
   nameBackground: '#FFFFFF',
   nameText: '#000000',
-  footerBackground: '#515E8B',
+  footerBackground: '#D90429',
   footerText: '#FFFFFF',
-  logoUrl: 'https://placehold.it/300x100/636987/ffffff?text=LOGO'
+  logoUrl: 'https://placehold.it/300x100/ffffff/000000?text=LOGO'
 });
 
 export default function reducer(state: StateType = initialState, action: ActionType): StateType {
