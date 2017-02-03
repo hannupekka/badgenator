@@ -16,6 +16,19 @@ type Props = {
 
 const Badge: Component<Props> = (props: Props): ElementType => {
   const { ui } = props;
+  const logoUrl = ui.get('logoUrl');
+
+  const maybeRenderLogo = (): ?ElementType => {
+    if (!logoUrl) {
+      return null;
+    }
+
+    return (
+      <div styleName="header__logo">
+        <img src={ui.get('logoUrl')} alt="Logo" />
+      </div>
+    );
+  };
 
   return (
     <div styleName="badge">
@@ -25,11 +38,9 @@ const Badge: Component<Props> = (props: Props): ElementType => {
           backgroundColor: ui.get('headerBackground')
         }}
       >
-        <div styleName="header__logo">
-          <img src={ui.get('logoUrl')} alt="Logo" />
-        </div>
+        {maybeRenderLogo()}
         <div
-          styleName="header__text"
+          styleName={logoUrl ? 'header__text' : 'header__text--no-logo'}
           style={{
             color: ui.get('headerText')
           }}
@@ -46,7 +57,7 @@ const Badge: Component<Props> = (props: Props): ElementType => {
         <span styleName="name--last">{props.lastname}</span>
       </div>
       <div
-        styleName="footer"
+        styleName={logoUrl ? 'footer' : 'footer--no-logo'}
         style={{
           backgroundColor: ui.get('footerBackground')
         }}

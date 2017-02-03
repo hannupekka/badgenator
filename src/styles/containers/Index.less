@@ -2,6 +2,8 @@
 
 .top {
   display: block;
+  max-width: @lg;
+  margin: auto;
 }
 
 .options {
@@ -22,7 +24,8 @@
 }
 
 .data {
-  margin: @padding 0;
+  margin: @padding auto;
+  max-width: @lg;
 }
 
 .textarea {
@@ -47,6 +50,11 @@
   & + & {
     margin-left: @padding;
   }
+}
+
+.bottom {
+  max-width: @lg;
+  margin: auto;
 }
 
 .badges {

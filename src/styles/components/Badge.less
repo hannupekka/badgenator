@@ -7,6 +7,7 @@
   flex-direction: column;
   width: 8.6cm;
   height: 5.9cm;
+  overflow: hidden;
 }
 
 .header {
@@ -31,6 +32,11 @@
 .header__text {
   flex: 1;
   text-align: right;
+}
+
+.header__text--no-logo {
+  flex: 1;
+  text-align: left;
 }
 
 .name {
@@ -61,4 +67,9 @@
   flex: 1;
   flex-direction: column;
   justify-content: center;
+}
+
+.footer--no-logo {
+    composes: footer;
+    text-align: left;
 }

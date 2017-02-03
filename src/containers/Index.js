@@ -75,7 +75,7 @@ class Index extends Component {
   setNames = (): void => {
     const { data } = this.props;
 
-    const inputValue = this.names.value;
+    const inputValue = this.names.value.trim();
 
     if (inputValue.length === 0) {
       return;
@@ -174,6 +174,7 @@ class Index extends Component {
                 styleName="input"
                 value={ui.get('logoUrl')}
                 ref={bindUrl}
+                placeholder="URL to logo"
                 onChange={changeLogo}
               />
             </div>
@@ -198,7 +199,7 @@ class Index extends Component {
           </button>
           {maybeRenderPrintButton()}
         </div>
-        <div>
+        <div styleName="bottom">
           <h2 styleName="title--top">Badges</h2>
           <div styleName="badges" className="cf">
             {maybeRenderBadges()}
