@@ -3,6 +3,7 @@ import { fromJS } from 'immutable';
 
 export const CHANGE_COLOR = 'badgenator/ui/CHANGE_COLOR';
 export const CHANGE_LOGO = 'badgenator/ui/CHANGE_LOGO';
+export const LOAD_CONFIG = 'badgenator/ui/LOAD_CONFIG';
 
 export const changeColor = (name: string, color: string): ActionType => ({
   type: CHANGE_COLOR,
@@ -16,6 +17,13 @@ export const changeLogo = (url: string): ActionType => ({
   type: CHANGE_LOGO,
   payload: {
     url
+  }
+});
+
+export const loadConfig = (config: Map<string, string>): ActionType => ({
+  type: LOAD_CONFIG,
+  payload: {
+    config
   }
 });
 
@@ -35,6 +43,8 @@ export default function reducer(state: StateType = initialState, action: ActionT
       return state.set(action.payload.name, action.payload.color);
     case CHANGE_LOGO:
       return state.set('logoUrl', action.payload.url);
+    case LOAD_CONFIG:
+      return state.merge(action.payload.config);
     default:
       return state;
   }

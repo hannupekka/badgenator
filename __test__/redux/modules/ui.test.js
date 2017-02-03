@@ -1,3 +1,4 @@
+import { fromJS } from 'immutable';
 import reducer, * as Ui from 'redux/modules/ui';
 
 describe('actions', () => {
@@ -22,6 +23,28 @@ describe('actions', () => {
     };
 
     expect(Ui.changeLogo('https://placehold.it/250/E8117F/ffffff?text=logo'))
+      .toEqual(expected);
+  });
+
+  it('should create an action for loading config', () => {
+    const config = fromJS({
+      headerBackground: '#D90429',
+      headerText: '#89d8a5',
+      nameBackground: '#7e2bad',
+      nameText: '#ffd907',
+      footerBackground: '#757373',
+      footerText: '#3ba064',
+      logoUrl: 'https://placehold.it/300x100/ffffff/000000?text=LOGOSS'
+    });
+
+    const expected = {
+      type: Ui.LOAD_CONFIG,
+      payload: {
+        config
+      }
+    };
+
+    expect(Ui.loadConfig(config))
       .toEqual(expected);
   });
 });
@@ -59,6 +82,32 @@ describe('reducer', () => {
 
     const expected = Ui.initialState
       .set('logoUrl', 'https://placehold.it/250/E8117F/ffffff?text=foobar');
+
+    expect(
+      reducer(Ui.initialState, action)
+    ).toEqual(expected);
+  });
+
+  it('should handle LOAD_CONFIG', () => {
+    const config = fromJS({
+      headerBackground: '#D90429',
+      headerText: '#89d8a5',
+      nameBackground: '#7e2bad',
+      nameText: '#ffd907',
+      footerBackground: '#757373',
+      footerText: '#3ba064',
+      logoUrl: 'https://placehold.it/300x100/ffffff/000000?text=LOGOSS'
+    });
+
+    const action = {
+      type: Ui.LOAD_CONFIG,
+      payload: {
+        config
+      }
+    };
+
+    const expected = Ui.initialState
+      .merge(config);
 
     expect(
       reducer(Ui.initialState, action)

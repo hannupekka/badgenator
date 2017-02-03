@@ -2,6 +2,7 @@
 import styles from 'styles/containers/Index';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { fromJS } from 'immutable';
 import type { Map } from 'immutable';
 import cuid from 'cuid';
 import Badge from 'components/Badge';
@@ -10,10 +11,13 @@ import * as DataActions from 'redux/modules/data';
 import * as UiActions from 'redux/modules/ui';
 import CSSModules from 'react-css-modules';
 
+const LOCAL_STORAGE_SAVE_PATH = 'badgenator_settings';
+
 type Props = {
   data: Map<string, any>,
   ui: Map<string, any>,
   changeLogo: Function,
+  loadConfig: Function,
   setNames: Function
 }
 
@@ -33,9 +37,27 @@ class Index extends Component {
     this.bindUrl = (c) => (this.url = c);
   }
 
+  componentDidMount = (): void => {
+    if (!localStorage || !localStorage.getItem(LOCAL_STORAGE_SAVE_PATH)) {
+      return;
+    }
+
+    const config = localStorage.getItem(LOCAL_STORAGE_SAVE_PATH);
+    if (!config) {
+      return;
+    }
+
+    this.props.loadConfig(fromJS(JSON.parse(config)));
+  }
+
   changeLogo = (): void => {
     const url = this.url.value;
     this.props.changeLogo(url);
+  }
+
+  deleteConfig = (): void => {
+    localStorage.removeItem(LOCAL_STORAGE_SAVE_PATH);
+    this.forceUpdate();
   }
 
   maybeRenderBadges = (): ElementType => {
@@ -57,6 +79,24 @@ class Index extends Component {
     )).toJS();
   }
 
+  maybeRenderDeleteConfigButton = (): ?ElementType => {
+    if (!localStorage || !localStorage.getItem(LOCAL_STORAGE_SAVE_PATH)) {
+      return null;
+    }
+
+    const { deleteConfig } = this;
+
+    return (
+      <button
+        styleName="button"
+        onClick={deleteConfig}
+      >
+        <i className="fa fa-trash" aria-hidden="true"></i>
+        Delete saved configuration
+      </button>
+    );
+  }
+
   maybeRenderPrintButton = (): ?ElementType => {
     const { data } = this.props;
 
@@ -70,6 +110,31 @@ class Index extends Component {
         Print
       </button>
     );
+  }
+
+  maybeRenderSaveConfigButton = (): ?ElementType => {
+    if (!localStorage) {
+      return null;
+    }
+
+    const { saveConfig } = this;
+
+    return (
+      <button
+        styleName="button"
+        onClick={saveConfig}
+      >
+        <i className="fa fa-save" aria-hidden="true"></i>
+        Save configuration
+      </button>
+    );
+  }
+
+  saveConfig = (): void => {
+    const { ui } = this.props;
+    const config = JSON.stringify(ui.toJS());
+    localStorage.setItem(LOCAL_STORAGE_SAVE_PATH, config);
+    this.forceUpdate();
   }
 
   setNames = (): void => {
@@ -110,7 +175,9 @@ class Index extends Component {
       bindUrl,
       changeLogo,
       maybeRenderBadges,
+      maybeRenderDeleteConfigButton,
       maybeRenderPrintButton,
+      maybeRenderSaveConfigButton,
       setNames
     } = this;
 
@@ -180,6 +247,10 @@ class Index extends Component {
             </div>
           </div>
         </div>
+        <div styleName="actions">
+          {maybeRenderSaveConfigButton()}
+          {maybeRenderDeleteConfigButton()}
+        </div>
         <div styleName="data">
           <h2 styleName="title--top">Names</h2>
           <textarea
@@ -217,8 +288,9 @@ const mapState = state => ({
 });
 
 const mapActions = {
-  setNames: DataActions.setNames,
-  changeLogo: UiActions.changeLogo
+  changeLogo: UiActions.changeLogo,
+  loadConfig: UiActions.loadConfig,
+  setNames: DataActions.setNames
 };
 
 export default connect(
