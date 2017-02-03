@@ -11,6 +11,8 @@ type Props = {
   firstname: ?string,
   lastname: ?string,
   footerText: ?string,
+  width?: string,
+  height?: string,
   ui: Object,
 }
 
@@ -31,7 +33,13 @@ const Badge: Component<Props> = (props: Props): ElementType => {
   };
 
   return (
-    <div styleName="badge">
+    <div
+      styleName="badge"
+      style={{
+        width: props.width ? `${props.width}cm` : '8.6cm',
+        height: props.height ? `${props.height}cm` : '5.9cm'
+      }}
+    >
       <div
         styleName="header"
         style={{

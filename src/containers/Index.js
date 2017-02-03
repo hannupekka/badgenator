@@ -12,6 +12,8 @@ import * as UiActions from 'redux/modules/ui';
 import CSSModules from 'react-css-modules';
 
 const LOCAL_STORAGE_SAVE_PATH = 'badgenator_settings';
+const DEFAULT_WIDTH = 8.6;
+const DEFAULT_HEIGHT = 5.9;
 
 type Props = {
   data: Map<string, any>,
@@ -25,16 +27,22 @@ type Props = {
 class Index extends Component {
   props: Props;
 
+  bindHeight: Function;
+  height: HTMLInputElement;
   bindNames: Function;
   names: HTMLInputElement;
   bindUrl: Function;
   url: HTMLInputElement;
+  bindWidth: Function;
+  width: HTMLInputElement;
 
   constructor(props: Object) {
     super(props);
 
+    this.bindHeight = (c) => (this.height = c);
     this.bindNames = (c) => (this.names = c);
     this.bindUrl = (c) => (this.url = c);
+    this.bindWidth = (c) => (this.width = c);
   }
 
   componentDidMount = (): void => {
@@ -68,6 +76,9 @@ class Index extends Component {
       return <div>Fill in data and generate badges with button above.</div>;
     }
 
+    const height = this.height.value;
+    const width = this.width.value;
+
     return names.map(name => (
       <Badge
         key={cuid()}
@@ -75,6 +86,8 @@ class Index extends Component {
         firstname={name.get('firstname')}
         lastname={name.get('lastname')}
         footerText={name.get('footerText')}
+        height={height}
+        width={width}
       />
     )).toJS();
   }
@@ -171,8 +184,10 @@ class Index extends Component {
   render() {
     const { ui } = this.props;
     const {
+      bindHeight,
       bindNames,
       bindUrl,
+      bindWidth,
       changeLogo,
       maybeRenderBadges,
       maybeRenderDeleteConfigButton,
@@ -260,6 +275,26 @@ class Index extends Component {
           ></textarea>
           <div styleName="help">
             Separate fields with ; and each badge data on its own line.
+          </div>
+          <div styleName="dimensions">
+            <span styleName="option__label">Width (cm)</span>
+            <input
+              type="number"
+              min="0"
+              styleName="input--inline"
+              defaultValue={DEFAULT_WIDTH}
+              ref={bindWidth}
+              placeholder={DEFAULT_WIDTH}
+            />
+            <span styleName="option__label">Height (cm)</span>
+            <input
+              type="number"
+              min="0"
+              styleName="input--inline"
+              defaultValue={DEFAULT_HEIGHT}
+              ref={bindHeight}
+              placeholder={DEFAULT_HEIGHT}
+            />
           </div>
           <button
             styleName="button"

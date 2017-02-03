@@ -19,6 +19,10 @@
   margin-bottom: @padding / 2;
 }
 
+.dimensions {
+  margin-top: @padding;
+}
+
 .preview {
   flex: 1;
 }
@@ -45,6 +49,16 @@
 
 .input {
   composes: base--input;
+}
+
+.input--inline {
+  composes: input;
+  width: 100px;
+  margin: 0 (@padding * 2) 0 (@padding / 2);
+
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .button {
