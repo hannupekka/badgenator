@@ -281,6 +281,7 @@ class Index extends Component {
             <input
               type="number"
               min="0"
+              step="any"
               styleName="input--inline"
               defaultValue={DEFAULT_WIDTH}
               ref={bindWidth}
@@ -290,6 +291,7 @@ class Index extends Component {
             <input
               type="number"
               min="0"
+              step="any"
               styleName="input--inline"
               defaultValue={DEFAULT_HEIGHT}
               ref={bindHeight}
