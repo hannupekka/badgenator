@@ -26,8 +26,12 @@ const Badge: Component<Props> = (props: Props): ElementType => {
     }
 
     return (
-      <div styleName="header__logo">
-        <img src={ui.get('logoUrl')} alt="Logo" />
+      <div
+        styleName="header__logo"
+        style={{
+          backgroundImage: `url(${ui.get('logoUrl')})`
+        }}
+      >
       </div>
     );
   };
