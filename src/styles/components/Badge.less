@@ -68,3 +68,9 @@
     composes: footer;
     text-align: left;
 }
+
+@media print {
+  .badge {
+    page-break-inside: avoid;
+  }
+}
