@@ -13,14 +13,26 @@ type Props = {
   footerText: ?string,
   width?: string,
   height?: string,
-  ui: Object,
+  ui: Map<string, any>,
 }
 
 const Badge: Component<Props> = (props: Props): ElementType => {
   const { ui } = props;
-  const logoUrl = ui.get('logoUrl');
+  const {
+    footerBackground,
+    footerText,
+    headerBackground,
+    headerText,
+    logoFile,
+    logoText,
+    logoType,
+    nameBackground,
+    nameText,
+    logoUrl
+  } = ui.toJS();
 
-  const maybeRenderLogo = (): ?ElementType => {
+
+  const maybeRenderLogoFromURL = (): ?ElementType => {
     if (!logoUrl) {
       return null;
     }
@@ -29,11 +41,56 @@ const Badge: Component<Props> = (props: Props): ElementType => {
       <div
         styleName="header__logo"
         style={{
-          backgroundImage: `url(${ui.get('logoUrl')})`
+          backgroundImage: `url(${logoUrl})`
         }}
       >
       </div>
     );
+  };
+
+  const maybeRenderLogoFromFile = (): ?ElementType => {
+    if (!logoFile) {
+      return null;
+    }
+
+    return (
+      <div
+        styleName="header__logo"
+        style={{
+          backgroundImage: `url(${logoFile})`
+        }}
+      >
+      </div>
+    );
+  };
+
+  const maybeRenderLogoText = (): ?ElementType => {
+    if (!logoText) {
+      return null;
+    }
+
+    return (
+      <div
+        styleName="header__logo--text"
+        style={{
+          color: headerText
+        }}
+      >
+        {logoText}
+      </div>
+    );
+  };
+
+  const maybeRenderLogo = (): ?ElementType => {
+    switch (logoType) {
+      default:
+      case 0:
+        return maybeRenderLogoFromURL();
+      case 1:
+        return maybeRenderLogoFromFile();
+      case 2:
+        return maybeRenderLogoText();
+    }
   };
 
   return (
@@ -47,22 +104,22 @@ const Badge: Component<Props> = (props: Props): ElementType => {
       <div
         styleName="header"
         style={{
-          backgroundColor: ui.get('headerBackground')
+          backgroundColor: headerBackground
         }}
       >
         {maybeRenderLogo()}
         <div
           styleName={logoUrl ? 'header__text' : 'header__text--no-logo'}
           style={{
-            color: ui.get('headerText')
+            color: headerText
           }}
         >{props.headerText}</div>
       </div>
       <div
         styleName="name"
         style={{
-          backgroundColor: ui.get('nameBackground'),
-          color: ui.get('nameText')
+          backgroundColor: nameBackground,
+          color: nameText
         }}
       >
         <span styleName="name--first">{props.firstname}</span>
@@ -71,12 +128,12 @@ const Badge: Component<Props> = (props: Props): ElementType => {
       <div
         styleName={logoUrl ? 'footer' : 'footer--no-logo'}
         style={{
-          backgroundColor: ui.get('footerBackground')
+          backgroundColor: footerBackground
         }}
       >
         <span
           style={{
-            color: ui.get('footerText')
+            color: footerText
           }}
         >{props.footerText}</span>
       </div>

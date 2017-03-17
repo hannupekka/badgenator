@@ -232,6 +232,10 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
+attr-accept@^1.0.3:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
+
 autoprefixer@^6.3.1, autoprefixer@^6.4.0:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-6.5.1.tgz#ae759a5221e709f3da17c2d656230e67c43cbb75"
@@ -1064,6 +1068,13 @@ binary-extensions@^1.0.0:
 blessed@^0.1.81:
   version "0.1.81"
   resolved "https://registry.yarnpkg.com/blessed/-/blessed-0.1.81.tgz#f962d687ec2c369570ae71af843256e6d0ca1129"
+
+blob-util@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/blob-util/-/blob-util-1.2.1.tgz#cda95814d2359802611a6110fe0bc88aa2dcaa2f"
+  dependencies:
+    blob "0.0.4"
+    native-or-lie "1.0.0"
 
 blob@0.0.4:
   version "0.0.4"
@@ -3204,6 +3215,10 @@ image-size@~0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.0.tgz#be7aed1c37b5ac3d9ba1d66a24b4c47ff8397651"
 
+immediate@~3.0.5:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
+
 immutable@^3.7.6:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
@@ -3798,6 +3813,10 @@ js-base64@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
 
+js-stylesheet@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/js-stylesheet/-/js-stylesheet-0.0.1.tgz#12cc1451220e454184b46de3b098c0d154762c38"
+
 js-tokens@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-2.0.0.tgz#79903f5563ee778cc1162e6dcf1a0027c97f9cb5"
@@ -3953,6 +3972,12 @@ levn@^0.3.0, levn@~0.3.0:
   dependencies:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
+
+lie@*:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/lie/-/lie-3.1.1.tgz#9a436b2cc7746ca59de7a41fa469b3efb76bd87e"
+  dependencies:
+    immediate "~3.0.5"
 
 load-json-file@^1.0.0:
   version "1.1.0"
@@ -4360,6 +4385,12 @@ mute-stream@0.0.5:
 nan@^2.3.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.4.0.tgz#fb3c59d45fe4effe215f0b890f8adf6eb32d2232"
+
+native-or-lie@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/native-or-lie/-/native-or-lie-1.0.0.tgz#14f8783f4b26257780be75142fa145375c50d980"
+  dependencies:
+    lie "*"
 
 natural-compare@^1.4.0:
   version "1.4.0"
@@ -5407,6 +5438,12 @@ react-dom@^15.3.0:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
+react-dropzone@^3.12.2:
+  version "3.12.2"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-3.12.2.tgz#7e66a37322a80cf26a205d749ecf8cad0d90aa6f"
+  dependencies:
+    attr-accept "^1.0.3"
+
 react-hot-api@^0.4.5:
   version "0.4.7"
   resolved "https://registry.yarnpkg.com/react-hot-api/-/react-hot-api-0.4.7.tgz#a7e22a56d252e11abd9366b61264cf4492c58171"
@@ -5457,6 +5494,13 @@ react-router:
 react-router-redux@^4.0.5:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/react-router-redux/-/react-router-redux-4.0.6.tgz#10cf98dce911d7dd912a05bdb07fee4d3c563dee"
+
+react-tabs@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/react-tabs/-/react-tabs-0.8.2.tgz#7928e822361b61eb7f53164daf86ad7ee98ef539"
+  dependencies:
+    classnames "^2.2.0"
+    js-stylesheet "^0.0.1"
 
 react@^15.3.0:
   version "15.3.2"

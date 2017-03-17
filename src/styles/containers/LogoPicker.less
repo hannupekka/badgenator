@@ -1,0 +1,20 @@
+@import '~styles/main';
+
+.title {
+  font-weight: bold;
+  margin-bottom: @padding / 2;
+}
+
+.input {
+  composes: base--input;
+}
+
+.dropzone {
+  composes: input;
+  background-color: #fff;
+  padding: (@padding) (@padding / 2);
+
+  &:hover {
+    cursor: pointer;
+  }
+}

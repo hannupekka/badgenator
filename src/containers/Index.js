@@ -7,6 +7,7 @@ import type { Map } from 'immutable';
 import cuid from 'cuid';
 import Badge from 'components/Badge';
 import ColorPicker from 'components/ColorPicker';
+import LogoPicker from 'containers/LogoPicker';
 import * as DataActions from 'redux/modules/data';
 import * as UiActions from 'redux/modules/ui';
 import CSSModules from 'react-css-modules';
@@ -18,7 +19,6 @@ const DEFAULT_HEIGHT = 5.9;
 type Props = {
   data: Map<string, any>,
   ui: Map<string, any>,
-  changeLogo: Function,
   loadConfig: Function,
   setNames: Function
 }
@@ -31,8 +31,6 @@ class Index extends Component {
   height: HTMLInputElement;
   bindNames: Function;
   names: HTMLInputElement;
-  bindUrl: Function;
-  url: HTMLInputElement;
   bindWidth: Function;
   width: HTMLInputElement;
 
@@ -41,7 +39,6 @@ class Index extends Component {
 
     this.bindHeight = (c) => (this.height = c);
     this.bindNames = (c) => (this.names = c);
-    this.bindUrl = (c) => (this.url = c);
     this.bindWidth = (c) => (this.width = c);
   }
 
@@ -56,11 +53,6 @@ class Index extends Component {
     }
 
     this.props.loadConfig(fromJS(JSON.parse(config)));
-  }
-
-  changeLogo = (): void => {
-    const url = this.url.value;
-    this.props.changeLogo(url);
   }
 
   deleteConfig = (): void => {
@@ -186,9 +178,7 @@ class Index extends Component {
     const {
       bindHeight,
       bindNames,
-      bindUrl,
       bindWidth,
-      changeLogo,
       maybeRenderBadges,
       maybeRenderDeleteConfigButton,
       maybeRenderPrintButton,
@@ -248,17 +238,7 @@ class Index extends Component {
             />
             <div styleName="option__group">
               <h2 styleName="title--top">Other settings</h2>
-              <div styleName="option__label">
-                Logo URL
-              </div>
-              <input
-                type="text"
-                styleName="input"
-                value={ui.get('logoUrl')}
-                ref={bindUrl}
-                placeholder="URL to logo"
-                onChange={changeLogo}
-              />
+              <LogoPicker />
             </div>
           </div>
         </div>
@@ -323,7 +303,6 @@ const mapState = state => ({
 });
 
 const mapActions = {
-  changeLogo: UiActions.changeLogo,
   loadConfig: UiActions.loadConfig,
   setNames: DataActions.setNames
 };

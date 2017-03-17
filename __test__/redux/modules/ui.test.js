@@ -14,15 +14,51 @@ describe('actions', () => {
     expect(Ui.changeColor('footerBackground', '#fff000')).toEqual(expected);
   });
 
-  it('should create an action for changing logo', () => {
+  it('should create an action for changing logo type', () => {
     const expected = {
-      type: Ui.CHANGE_LOGO,
+      type: Ui.CHANGE_LOGO_TYPE,
+      payload: {
+        type: 1
+      }
+    };
+
+    expect(Ui.changeLogoType(1))
+      .toEqual(expected);
+  });
+
+  it('should create an action for changing logo text', () => {
+    const expected = {
+      type: Ui.CHANGE_LOGO_TEXT,
+      payload: {
+        text: 'this is logo text'
+      }
+    };
+
+    expect(Ui.changeLogoText('this is logo text'))
+      .toEqual(expected);
+  });
+
+  it('should create an action for changing logo file', () => {
+    const expected = {
+      type: Ui.CHANGE_LOGO_FILE,
+      payload: {
+        file: 'logofileblob'
+      }
+    };
+
+    expect(Ui.changeLogoFile('logofileblob'))
+      .toEqual(expected);
+  });
+
+  it('should create an action for changing logo url', () => {
+    const expected = {
+      type: Ui.CHANGE_LOGO_URL,
       payload: {
         url: 'https://placehold.it/250/E8117F/ffffff?text=logo'
       }
     };
 
-    expect(Ui.changeLogo('https://placehold.it/250/E8117F/ffffff?text=logo'))
+    expect(Ui.changeLogoUrl('https://placehold.it/250/E8117F/ffffff?text=logo'))
       .toEqual(expected);
   });
 
@@ -72,9 +108,57 @@ describe('reducer', () => {
     ).toEqual(expected);
   });
 
-  it('should handle CHANGE_LOGO', () => {
+  it('should handle CHANGE_LOGO_TYPE', () => {
     const action = {
-      type: Ui.CHANGE_LOGO,
+      type: Ui.CHANGE_LOGO_TYPE,
+      payload: {
+        type: 1
+      }
+    };
+
+    const expected = Ui.initialState
+      .set('logoType', 1);
+
+    expect(
+      reducer(Ui.initialState, action)
+    ).toEqual(expected);
+  });
+
+  it('should handle CHANGE_LOGO_TEXT', () => {
+    const action = {
+      type: Ui.CHANGE_LOGO_TEXT,
+      payload: {
+        text: 'this is logo text'
+      }
+    };
+
+    const expected = Ui.initialState
+      .set('logoText', 'this is logo text');
+
+    expect(
+      reducer(Ui.initialState, action)
+    ).toEqual(expected);
+  });
+
+  it('should handle CHANGE_LOGO_FILE', () => {
+    const action = {
+      type: Ui.CHANGE_LOGO_FILE,
+      payload: {
+        file: 'logoblob'
+      }
+    };
+
+    const expected = Ui.initialState
+      .set('logoFile', 'logoblob');
+
+    expect(
+      reducer(Ui.initialState, action)
+    ).toEqual(expected);
+  });
+
+  it('should handle CHANGE_LOGO_URL', () => {
+    const action = {
+      type: Ui.CHANGE_LOGO_URL,
       payload: {
         url: 'https://placehold.it/250/E8117F/ffffff?text=foobar'
       }
