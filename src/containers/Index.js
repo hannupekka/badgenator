@@ -47,12 +47,18 @@ class Index extends Component {
       return;
     }
 
-    const config = localStorage.getItem(LOCAL_STORAGE_SAVE_PATH);
-    if (!config) {
+    const storedConfig = localStorage.getItem(LOCAL_STORAGE_SAVE_PATH);
+    if (!storedConfig) {
       return;
     }
 
-    this.props.loadConfig(fromJS(JSON.parse(config)));
+    const config = fromJS(JSON.parse(storedConfig));
+
+    // Set names.
+    this.names.value = config.get('names');
+
+    // Load UI config.
+    this.props.loadConfig(config.get('ui'));
   }
 
   deleteConfig = (): void => {
@@ -137,26 +143,35 @@ class Index extends Component {
 
   saveConfig = (): void => {
     const { ui } = this.props;
-    const config = JSON.stringify(ui.toJS());
+    const config = JSON.stringify({
+      names: this.names.value.trim(),
+      ui: ui.toJS()
+    });
+
     localStorage.setItem(LOCAL_STORAGE_SAVE_PATH, config);
     this.forceUpdate();
   }
 
+  parseNames = (): Array<string> => {
+    const namesValue = this.names.value.trim();
+
+    if (namesValue.length === 0) {
+      return [];
+    }
+
+    const names = namesValue.split('\n');
+    if (names.length === 0) {
+      return [];
+    }
+
+    return names;
+  }
+
   setNames = (): void => {
+    const { parseNames } = this;
     const { data } = this.props;
 
-    const inputValue = this.names.value.trim();
-
-    if (inputValue.length === 0) {
-      return;
-    }
-
-    const input = inputValue.split('\n');
-    if (input.length === 0) {
-      return;
-    }
-
-    const names = input.map(name => {
+    const names = parseNames().map(name => {
       const [headerText, firstname, lastname, footerText] = name.split(data.get('separator'));
       return {
         headerText,
@@ -165,10 +180,6 @@ class Index extends Component {
         footerText
       };
     });
-
-    if (names.length === 0) {
-      return;
-    }
 
     this.props.setNames(names);
   }

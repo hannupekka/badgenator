@@ -13,7 +13,7 @@ export const SET_NAMES = 'badgenator/data/SET_NAMES';
 export const setNames = (names: Array<Name>): ActionType => ({
   type: SET_NAMES,
   payload: {
-    names,
+    names
   }
 });
 
