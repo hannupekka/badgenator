@@ -14,6 +14,18 @@ describe('actions', () => {
     expect(Ui.changeColor('footerBackground', '#fff000')).toEqual(expected);
   });
 
+  it('should create an action for changing text size', () => {
+    const expected = {
+      type: Ui.CHANGE_SIZE,
+      payload: {
+        name: 'headerSize',
+        size: 10
+      }
+    };
+
+    expect(Ui.changeSize('headerSize', 10)).toEqual(expected);
+  });
+
   it('should create an action for changing logo type', () => {
     const expected = {
       type: Ui.CHANGE_LOGO_TYPE,
@@ -102,6 +114,22 @@ describe('reducer', () => {
     };
 
     const expected = Ui.initialState.set('footerBackground', '#fff000');
+
+    expect(
+      reducer(Ui.initialState, action)
+    ).toEqual(expected);
+  });
+
+  it('should handle CHANGE_SIZE', () => {
+    const action = {
+      type: Ui.CHANGE_SIZE,
+      payload: {
+        name: 'headerSize',
+        size: 2
+      }
+    };
+
+    const expected = Ui.initialState.set('headerSize', 2);
 
     expect(
       reducer(Ui.initialState, action)

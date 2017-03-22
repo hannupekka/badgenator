@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fromJS } from 'immutable';
 import type { Map } from 'immutable';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import cuid from 'cuid';
 import Badge from 'components/Badge';
 import ColorPicker from 'components/ColorPicker';
@@ -15,10 +16,18 @@ import CSSModules from 'react-css-modules';
 const LOCAL_STORAGE_SAVE_PATH = 'badgenator_settings';
 const DEFAULT_WIDTH = 8.6;
 const DEFAULT_HEIGHT = 5.9;
+const TABLIST_STYLE = {
+  margin: '0 0 1rem'
+};
+
+const TAB_STYLE = {
+  borderRadius: '2px 2px 0 0'
+};
 
 type Props = {
   data: Map<string, any>,
   ui: Map<string, any>,
+  changeSize: Function,
   loadConfig: Function,
   setNames: Function
 }
@@ -184,6 +193,17 @@ class Index extends Component {
     this.props.setNames(names);
   }
 
+  onChangeSize = (event: InputEvent): void => {
+    const { name } = event.target;
+    const value = event.target.value.replace(',', '.');
+
+    const isNumber = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if (isNumber || value === '') {
+      this.props.changeSize(name, value);
+    }
+  }
+
   render() {
     const { ui } = this.props;
     const {
@@ -194,50 +214,97 @@ class Index extends Component {
       maybeRenderDeleteConfigButton,
       maybeRenderPrintButton,
       maybeRenderSaveConfigButton,
-      setNames
+      setNames,
+      onChangeSize
     } = this;
 
     return (
       <div>
         <div styleName="top">
           <div styleName="options">
-            <h2 styleName="title--top">Colors</h2>
-            <ColorPicker
-              color={ui.get('headerBackground')}
-              colorName="headerBackground"
-            >
-              Header background color
-            </ColorPicker>
-            <ColorPicker
-              color={ui.get('headerText')}
-              colorName="headerText"
-            >
-              Header text color
-            </ColorPicker>
-            <ColorPicker
-              color={ui.get('nameBackground')}
-              colorName="nameBackground"
-            >
-              Name background color
-            </ColorPicker>
-            <ColorPicker
-              color={ui.get('nameText')}
-              colorName="nameText"
-            >
-              Name text color
-            </ColorPicker>
-            <ColorPicker
-              color={ui.get('footerBackground')}
-              colorName="footerBackground"
-            >
-              Footer background color
-            </ColorPicker>
-            <ColorPicker
-              color={ui.get('footerText')}
-              colorName="footerText"
-            >
-              Footer text color
-            </ColorPicker>
+            <h2 styleName="title--top">Layout</h2>
+            <Tabs styleName="tabs" selectedIndex={1}>
+              <TabList style={TABLIST_STYLE}>
+                <Tab style={TAB_STYLE}>Colors</Tab>
+                <Tab style={TAB_STYLE}>Font</Tab>
+              </TabList>
+              <TabPanel>
+                <div styleName="title">Header</div>
+                <ColorPicker
+                  color={ui.get('headerBackground')}
+                  colorName="headerBackground"
+                >
+                  Background color
+                </ColorPicker>
+                <ColorPicker
+                  color={ui.get('headerText')}
+                  colorName="headerText"
+                >
+                  Text color
+                </ColorPicker>
+                <div styleName="title">Name</div>
+                <ColorPicker
+                  color={ui.get('nameBackground')}
+                  colorName="nameBackground"
+                >
+                  Background color
+                </ColorPicker>
+                <ColorPicker
+                  color={ui.get('nameText')}
+                  colorName="nameText"
+                >
+                  Text color
+                </ColorPicker>
+                <div styleName="title">Footer</div>
+                <ColorPicker
+                  color={ui.get('footerBackground')}
+                  colorName="footerBackground"
+                >
+                  Background color
+                </ColorPicker>
+                <ColorPicker
+                  color={ui.get('footerText')}
+                  colorName="footerText"
+                >
+                  Text color
+                </ColorPicker>
+              </TabPanel>
+              <TabPanel>
+                <div styleName="option__group">
+                  <div styleName="option__label">Header size</div>
+                  <input
+                    name="headerSize"
+                    styleName="input"
+                    type="text"
+                    value={ui.get('headerSize')}
+                    onChange={onChangeSize}
+                    placeholder="Font size"
+                  />
+                </div>
+                <div styleName="option__group">
+                  <div styleName="option__label">Name size</div>
+                  <input
+                    name="nameSize"
+                    styleName="input"
+                    type="text"
+                    value={ui.get('nameSize')}
+                    onChange={onChangeSize}
+                    placeholder="Font size"
+                  />
+                </div>
+                <div styleName="option__group">
+                  <div styleName="option__label">Footer size</div>
+                  <input
+                    name="footerSize"
+                    styleName="input"
+                    type="text"
+                    value={ui.get('footerSize')}
+                    onChange={onChangeSize}
+                    placeholder="Font size"
+                  />
+                </div>
+              </TabPanel>
+            </Tabs>
           </div>
           <div styleName="preview">
             <h2 styleName="title--top">Preview</h2>
@@ -314,6 +381,7 @@ const mapState = state => ({
 });
 
 const mapActions = {
+  changeSize: UiActions.changeSize,
   loadConfig: UiActions.loadConfig,
   setNames: DataActions.setNames
 };

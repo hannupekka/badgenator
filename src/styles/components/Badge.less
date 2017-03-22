@@ -48,16 +48,19 @@
   justify-content: center;
 }
 
-.name--first,
-.name--last {
+.name__first,
+.name__last {
   display: block;
   text-transform: uppercase;
 }
 
-.name--first {
+.name__first {
   font-weight: bold;
   font-size: 1.2rem;
-  margin-bottom: @padding / 2;
+}
+
+.name__first + .name__last {
+  margin-top: @padding / 2;
 }
 
 .footer {

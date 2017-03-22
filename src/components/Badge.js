@@ -3,6 +3,7 @@ import styles from 'styles/components/Badge';
 import React from 'react';
 import { pure } from 'recompose';
 import { connect } from 'react-redux';
+import { initialState } from 'redux/modules/ui';
 import type { Component } from 'recompose';
 import CSSModules from 'react-css-modules';
 
@@ -21,13 +22,16 @@ const Badge: Component<Props> = (props: Props): ElementType => {
   const {
     footerBackground,
     footerText,
+    footerSize,
     headerBackground,
     headerText,
+    headerSize,
     logoFile,
     logoText,
     logoType,
     nameBackground,
     nameText,
+    nameSize,
     logoUrl
   } = ui.toJS();
 
@@ -104,7 +108,8 @@ const Badge: Component<Props> = (props: Props): ElementType => {
       <div
         styleName="header"
         style={{
-          backgroundColor: headerBackground
+          backgroundColor: headerBackground,
+          fontSize: headerSize ? `${headerSize}rem` : `${initialState.get('headerSize')}rem`
         }}
       >
         {maybeRenderLogo()}
@@ -122,8 +127,22 @@ const Badge: Component<Props> = (props: Props): ElementType => {
           color: nameText
         }}
       >
-        <span styleName="name--first">{props.firstname}</span>
-        <span styleName="name--last">{props.lastname}</span>
+        {props.firstname && <span
+          styleName="name__first"
+          style={{
+            fontSize: nameSize ? `${nameSize}rem` : `${initialState.get('nameSize')}rem`
+          }}
+        >
+          {props.firstname}
+        </span>}
+        {props.lastname && <span
+          styleName="name__last"
+          style={{
+            fontSize: nameSize ? `${nameSize - 0.2}rem` : `${initialState.get('nameSize') - 0.2}rem`
+          }}
+        >
+          {props.lastname}
+        </span>}
       </div>
       <div
         styleName={logoUrl ? 'footer' : 'footer--no-logo'}
@@ -133,7 +152,8 @@ const Badge: Component<Props> = (props: Props): ElementType => {
       >
         <span
           style={{
-            color: footerText
+            color: footerText,
+            fontSize: footerSize ? `${footerSize}rem` : `${initialState.get('footerSize')}rem`
           }}
         >{props.footerText}</span>
       </div>

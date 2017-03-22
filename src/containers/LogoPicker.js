@@ -9,6 +9,10 @@ import BlobUtil from 'blob-util';
 import * as UiActions from 'redux/modules/ui';
 import CSSModules from 'react-css-modules';
 
+const TABLIST_STYLE = {
+  margin: '0 0 1rem'
+};
+
 const TAB_STYLE = {
   borderRadius: '2px 2px 0 0'
 };
@@ -69,7 +73,7 @@ class LogoPicker extends Component {
       <div>
         <div styleName="title">Logo</div>
         <Tabs onSelect={onTabSelect} selectedIndex={ui.get('logoType')}>
-          <TabList>
+          <TabList style={TABLIST_STYLE}>
             <Tab style={TAB_STYLE}>URL</Tab>
             <Tab style={TAB_STYLE}>Upload</Tab>
             <Tab style={TAB_STYLE}>Text</Tab>
