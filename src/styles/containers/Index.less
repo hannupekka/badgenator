@@ -22,6 +22,11 @@
   margin-top: @padding;
 }
 
+.option__row {
+  display: flex;
+  align-items: center;
+}
+
 .option__label {
   font-weight: bold;
   margin-bottom: @padding / 2;
@@ -48,6 +53,11 @@
 
 .input {
   composes: base--input;
+}
+
+.suffix {
+  padding-left: @padding / 2;
+  font-size: 0.8rem;
 }
 
 .input--inline {

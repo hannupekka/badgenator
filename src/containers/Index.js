@@ -223,10 +223,10 @@ class Index extends Component {
         <div styleName="top">
           <div styleName="options">
             <h2 styleName="title--top">Layout</h2>
-            <Tabs styleName="tabs" selectedIndex={1}>
+            <Tabs styleName="tabs">
               <TabList style={TABLIST_STYLE}>
                 <Tab style={TAB_STYLE}>Colors</Tab>
-                <Tab style={TAB_STYLE}>Font</Tab>
+                <Tab style={TAB_STYLE}>Fonts</Tab>
               </TabList>
               <TabPanel>
                 <div styleName="title">Header</div>
@@ -272,36 +272,45 @@ class Index extends Component {
               <TabPanel>
                 <div styleName="option__group">
                   <div styleName="option__label">Header size</div>
-                  <input
-                    name="headerSize"
-                    styleName="input"
-                    type="text"
-                    value={ui.get('headerSize')}
-                    onChange={onChangeSize}
-                    placeholder="Font size"
-                  />
+                  <div styleName="option__row">
+                    <input
+                      name="headerSize"
+                      styleName="input"
+                      type="text"
+                      value={ui.get('headerSize')}
+                      onChange={onChangeSize}
+                      placeholder="Font size"
+                    />
+                    <span styleName="suffix">rem</span>
+                  </div>
                 </div>
                 <div styleName="option__group">
                   <div styleName="option__label">Name size</div>
-                  <input
-                    name="nameSize"
-                    styleName="input"
-                    type="text"
-                    value={ui.get('nameSize')}
-                    onChange={onChangeSize}
-                    placeholder="Font size"
-                  />
+                  <div styleName="option__row">
+                    <input
+                      name="nameSize"
+                      styleName="input"
+                      type="text"
+                      value={ui.get('nameSize')}
+                      onChange={onChangeSize}
+                      placeholder="Font size"
+                    />
+                    <span styleName="suffix">rem</span>
+                  </div>
                 </div>
                 <div styleName="option__group">
                   <div styleName="option__label">Footer size</div>
-                  <input
-                    name="footerSize"
-                    styleName="input"
-                    type="text"
-                    value={ui.get('footerSize')}
-                    onChange={onChangeSize}
-                    placeholder="Font size"
-                  />
+                  <div styleName="option__row">
+                    <input
+                      name="footerSize"
+                      styleName="input"
+                      type="text"
+                      value={ui.get('footerSize')}
+                      onChange={onChangeSize}
+                      placeholder="Font size"
+                    />
+                    <span styleName="suffix">rem</span>
+                  </div>
                 </div>
               </TabPanel>
             </Tabs>
