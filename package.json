@@ -107,8 +107,8 @@
     "test"
   ],
   "engines": {
-    "npm": "3.10.3",
-    "node": "8.1.4"
+    "npm": "^6.0.0",
+    "node": "^9.0.0"
   },
   "jest": {
     "coveragePathIgnorePatterns": [

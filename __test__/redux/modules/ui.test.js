@@ -26,6 +26,18 @@ describe('actions', () => {
     expect(Ui.changeSize('headerSize', 10)).toEqual(expected);
   });
 
+  it('should create an action for changing text weight', () => {
+    const expected = {
+      type: Ui.CHANGE_WEIGHT,
+      payload: {
+        name: 'firstNameWeight',
+        weight: 700
+      }
+    };
+
+    expect(Ui.changeWeight('firstNameWeight', 700)).toEqual(expected);
+  });
+
   it('should create an action for changing logo type', () => {
     const expected = {
       type: Ui.CHANGE_LOGO_TYPE,
@@ -130,6 +142,22 @@ describe('reducer', () => {
     };
 
     const expected = Ui.initialState.set('headerSize', 2);
+
+    expect(
+      reducer(Ui.initialState, action)
+    ).toEqual(expected);
+  });
+
+  it('should handle CHANGE_WEIGHT', () => {
+    const action = {
+      type: Ui.CHANGE_WEIGHT,
+      payload: {
+        name: 'firstNameWeight',
+        weight: 700
+      }
+    };
+
+    const expected = Ui.initialState.set('firstNameWeight', 700);
 
     expect(
       reducer(Ui.initialState, action)

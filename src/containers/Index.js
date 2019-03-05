@@ -28,6 +28,7 @@ type Props = {
   data: Map<string, any>,
   ui: Map<string, any>,
   changeSize: Function,
+  changeWeight: Function,
   loadConfig: Function,
   setNames: Function
 }
@@ -204,6 +205,17 @@ class Index extends Component {
     }
   }
 
+  onChangeWeight = (event: InputEvent): void => {
+    const { name } = event.target;
+    const value = event.target.value.replace(',', '.');
+
+    const isNumber = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if (isNumber || value === '') {
+      this.props.changeWeight(name, value);
+    }
+  }
+
   render() {
     const { ui } = this.props;
     const {
@@ -215,7 +227,8 @@ class Index extends Component {
       maybeRenderPrintButton,
       maybeRenderSaveConfigButton,
       setNames,
-      onChangeSize
+      onChangeSize,
+      onChangeWeight,
     } = this;
 
     return (
@@ -285,17 +298,57 @@ class Index extends Component {
                   </div>
                 </div>
                 <div styleName="option__group">
-                  <div styleName="option__label">Name size</div>
+                  <div styleName="option__label">Firstname size</div>
                   <div styleName="option__row">
                     <input
-                      name="nameSize"
+                      name="firstNameSize"
                       styleName="input"
                       type="text"
-                      value={ui.get('nameSize')}
+                      value={ui.get('firstNameSize')}
                       onChange={onChangeSize}
                       placeholder="Font size"
                     />
                     <span styleName="suffix">rem</span>
+                  </div>
+                </div>
+                <div styleName="option__group">
+                  <div styleName="option__label">Firstname weight</div>
+                  <div styleName="option__row">
+                    <input
+                      name="firstNameWeight"
+                      styleName="input"
+                      type="text"
+                      value={ui.get('firstNameWeight')}
+                      onChange={onChangeWeight}
+                      placeholder="Font weight"
+                    />
+                  </div>
+                </div>
+                <div styleName="option__group">
+                  <div styleName="option__label">Lastname size</div>
+                  <div styleName="option__row">
+                    <input
+                      name="lastNameSize"
+                      styleName="input"
+                      type="text"
+                      value={ui.get('lastNameSize')}
+                      onChange={onChangeSize}
+                      placeholder="Font size"
+                    />
+                    <span styleName="suffix">rem</span>
+                  </div>
+                </div>
+                <div styleName="option__group">
+                  <div styleName="option__label">Lastname weight</div>
+                  <div styleName="option__row">
+                    <input
+                      name="lastNameWeight"
+                      styleName="input"
+                      type="text"
+                      value={ui.get('lastNameWeight')}
+                      onChange={onChangeWeight}
+                      placeholder="Font weight"
+                    />
                   </div>
                 </div>
                 <div styleName="option__group">
@@ -391,6 +444,7 @@ const mapState = state => ({
 
 const mapActions = {
   changeSize: UiActions.changeSize,
+  changeWeight: UiActions.changeWeight,
   loadConfig: UiActions.loadConfig,
   setNames: DataActions.setNames
 };

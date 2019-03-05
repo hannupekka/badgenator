@@ -31,7 +31,10 @@ const Badge: Component<Props> = (props: Props): ElementType => {
     logoType,
     nameBackground,
     nameText,
-    nameSize,
+    firstNameSize,
+    lastNameSize,
+    firstNameWeight,
+    lastNameWeight,
     logoUrl
   } = ui.toJS();
 
@@ -130,7 +133,10 @@ const Badge: Component<Props> = (props: Props): ElementType => {
         {props.firstname && <span
           styleName="name__first"
           style={{
-            fontSize: nameSize ? `${nameSize}rem` : `${initialState.get('nameSize')}rem`
+            fontSize: firstNameSize
+              ? `${firstNameSize}rem`
+              : `${initialState.get('firstNameSize')}rem`,
+            fontWeight: firstNameWeight || initialState.get('firstNameWeight')
           }}
         >
           {props.firstname}
@@ -138,7 +144,10 @@ const Badge: Component<Props> = (props: Props): ElementType => {
         {props.lastname && <span
           styleName="name__last"
           style={{
-            fontSize: nameSize ? `${nameSize - 0.2}rem` : `${initialState.get('nameSize') - 0.2}rem`
+            fontSize: lastNameSize
+              ? `${lastNameSize}rem`
+              : `${initialState.get('lastNameSize')}rem`,
+            fontWeight: lastNameWeight || initialState.get('lastNameWeight')
           }}
         >
           {props.lastname}

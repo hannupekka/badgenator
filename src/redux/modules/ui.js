@@ -3,6 +3,7 @@ import { fromJS } from 'immutable';
 
 export const CHANGE_COLOR = 'badgenator/ui/CHANGE_COLOR';
 export const CHANGE_SIZE = 'badgenator/ui/CHANGE_SIZE';
+export const CHANGE_WEIGHT = 'badgenator/ui/CHANGE_WEIGHT';
 export const CHANGE_LOGO_FILE = 'badgenator/ui/CHANGE_LOGO_FILE';
 export const CHANGE_LOGO_TYPE = 'badgenator/ui/CHANGE_LOGO_TYPE';
 export const CHANGE_LOGO_URL = 'badgenator/ui/CHANGE_LOGO_URL';
@@ -14,6 +15,14 @@ export const changeSize = (name: string, size: number): ActionType => ({
   payload: {
     name,
     size
+  }
+});
+
+export const changeWeight = (name: string, weight: number): ActionType => ({
+  type: CHANGE_WEIGHT,
+  payload: {
+    name,
+    weight
   }
 });
 
@@ -66,7 +75,10 @@ export const initialState = fromJS({
   headerSize: 1,
   nameBackground: '#FFFFFF',
   nameText: '#000000',
-  nameSize: 1.2,
+  firstNameSize: 1.2,
+  lastNameSize: 1.0,
+  firstNameWeight: 700,
+  lastNameWeight: 400,
   footerBackground: '#D90429',
   footerText: '#FFFFFF',
   footerSize: 1,
@@ -80,6 +92,8 @@ export default function reducer(state: StateType = initialState, action: ActionT
   switch (action.type) {
     case CHANGE_SIZE:
       return state.set(action.payload.name, action.payload.size);
+    case CHANGE_WEIGHT:
+      return state.set(action.payload.name, action.payload.weight);
     case CHANGE_COLOR:
       return state.set(action.payload.name, action.payload.color);
     case CHANGE_LOGO_FILE:
