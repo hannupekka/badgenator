@@ -14,8 +14,6 @@ import * as UiActions from 'redux/modules/ui';
 import CSSModules from 'react-css-modules';
 
 const LOCAL_STORAGE_SAVE_PATH = 'badgenator_settings';
-const DEFAULT_WIDTH = 8.6;
-const DEFAULT_HEIGHT = 5.9;
 const TABLIST_STYLE = {
   margin: '0 0 1rem'
 };
@@ -29,6 +27,8 @@ type Props = {
   ui: Map<string, any>,
   changeSize: Function,
   changeWeight: Function,
+  changeBadgeHeight: Function,
+  changeBadgeWidth: Function,
   loadConfig: Function,
   setNames: Function
 }
@@ -216,6 +216,26 @@ class Index extends Component {
     }
   }
 
+  onChangeBadgeWidth = (event: InputEvent): void => {
+    const value = event.target.value.replace(',', '.');
+
+    const isNumber = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if (isNumber || value === '') {
+      this.props.changeBadgeWidth(value);
+    }
+  }
+
+  onChangeBadgeHeight = (event: InputEvent): void => {
+    const value = event.target.value.replace(',', '.');
+
+    const isNumber = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if (isNumber || value === '') {
+      this.props.changeBadgeHeight(value);
+    }
+  }
+
   render() {
     const { ui } = this.props;
     const {
@@ -229,6 +249,8 @@ class Index extends Component {
       setNames,
       onChangeSize,
       onChangeWeight,
+      onChangeBadgeHeight,
+      onChangeBadgeWidth,
     } = this;
 
     return (
@@ -375,6 +397,8 @@ class Index extends Component {
               firstname="First name"
               lastname="Last name"
               footerText="Footer text"
+              width={ui.get('badgeWidth').toString()}
+              height={ui.get('badgeHeight').toString()}
             />
             <div styleName="option__group">
               <h2 styleName="title--top">Other settings</h2>
@@ -404,7 +428,8 @@ class Index extends Component {
               step="any"
               styleName="input--inline"
               ref={bindWidth}
-              placeholder={DEFAULT_WIDTH}
+              value={ui.get('badgeWidth')}
+              onChange={onChangeBadgeWidth}
             />
             <span styleName="option__label">Height (cm)</span>
             <input
@@ -413,7 +438,8 @@ class Index extends Component {
               step="any"
               styleName="input--inline"
               ref={bindHeight}
-              placeholder={DEFAULT_HEIGHT}
+              value={ui.get('badgeHeight')}
+              onChange={onChangeBadgeHeight}
             />
           </div>
           <button
@@ -446,7 +472,9 @@ const mapActions = {
   changeSize: UiActions.changeSize,
   changeWeight: UiActions.changeWeight,
   loadConfig: UiActions.loadConfig,
-  setNames: DataActions.setNames
+  setNames: DataActions.setNames,
+  changeBadgeHeight: UiActions.changeBadgeHeight,
+  changeBadgeWidth: UiActions.changeBadgeWidth,
 };
 
 export default connect(

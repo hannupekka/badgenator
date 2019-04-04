@@ -2,6 +2,28 @@ import { fromJS } from 'immutable';
 import reducer, * as Ui from 'redux/modules/ui';
 
 describe('actions', () => {
+  it('should create an action for changing badge width', () => {
+    const expected = {
+      type: Ui.CHANGE_BADGE_WIDTH,
+      payload: {
+        width: '8.6'
+      }
+    };
+
+    expect(Ui.changeBadgeWidth('8.6')).toEqual(expected);
+  });
+
+  it('should create an action for changing badge height', () => {
+    const expected = {
+      type: Ui.CHANGE_BADGE_HEIGHT,
+      payload: {
+        height: '5.9'
+      }
+    };
+
+    expect(Ui.changeBadgeHeight('5.9')).toEqual(expected);
+  });
+
   it('should create an action for changing color', () => {
     const expected = {
       type: Ui.CHANGE_COLOR,
@@ -88,6 +110,8 @@ describe('actions', () => {
 
   it('should create an action for loading config', () => {
     const config = fromJS({
+      badgeWidth: 8.6,
+      badgeHeight: 5.9,
       headerBackground: '#D90429',
       headerText: '#89d8a5',
       nameBackground: '#7e2bad',
@@ -126,6 +150,36 @@ describe('reducer', () => {
     };
 
     const expected = Ui.initialState.set('footerBackground', '#fff000');
+
+    expect(
+      reducer(Ui.initialState, action)
+    ).toEqual(expected);
+  });
+
+  it('should handle CHANGE_BADGE_WIDTH', () => {
+    const action = {
+      type: Ui.CHANGE_BADGE_WIDTH,
+      payload: {
+        width: '8.6'
+      }
+    };
+
+    const expected = Ui.initialState.set('badgeWidth', '8.6');
+
+    expect(
+      reducer(Ui.initialState, action)
+    ).toEqual(expected);
+  });
+
+  it('should handle CHANGE_BADGE_HEIGHT', () => {
+    const action = {
+      type: Ui.CHANGE_BADGE_HEIGHT,
+      payload: {
+        height: '5.9'
+      }
+    };
+
+    const expected = Ui.initialState.set('badgeHeight', '5.9');
 
     expect(
       reducer(Ui.initialState, action)
@@ -230,6 +284,8 @@ describe('reducer', () => {
 
   it('should handle LOAD_CONFIG', () => {
     const config = fromJS({
+      badgeWidth: 8.6,
+      badgeHeight: 5.9,
       headerBackground: '#D90429',
       headerText: '#89d8a5',
       nameBackground: '#7e2bad',

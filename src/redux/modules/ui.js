@@ -2,6 +2,8 @@
 import { fromJS } from 'immutable';
 
 export const CHANGE_COLOR = 'badgenator/ui/CHANGE_COLOR';
+export const CHANGE_BADGE_WIDTH = 'badgenator/ui/CHANGE_BADGE_WIDTH';
+export const CHANGE_BADGE_HEIGHT = 'badgenator/ui/CHANGE_BADGE_HEIGHT';
 export const CHANGE_SIZE = 'badgenator/ui/CHANGE_SIZE';
 export const CHANGE_WEIGHT = 'badgenator/ui/CHANGE_WEIGHT';
 export const CHANGE_LOGO_FILE = 'badgenator/ui/CHANGE_LOGO_FILE';
@@ -9,6 +11,20 @@ export const CHANGE_LOGO_TYPE = 'badgenator/ui/CHANGE_LOGO_TYPE';
 export const CHANGE_LOGO_URL = 'badgenator/ui/CHANGE_LOGO_URL';
 export const CHANGE_LOGO_TEXT = 'badgenator/ui/CHANGE_LOGO_TEXT';
 export const LOAD_CONFIG = 'badgenator/ui/LOAD_CONFIG';
+
+export const changeBadgeWidth = (width: number): ActionType => ({
+  type: CHANGE_BADGE_WIDTH,
+  payload: {
+    width,
+  }
+});
+
+export const changeBadgeHeight = (height: number): ActionType => ({
+  type: CHANGE_BADGE_HEIGHT,
+  payload: {
+    height,
+  }
+});
 
 export const changeSize = (name: string, size: number): ActionType => ({
   type: CHANGE_SIZE,
@@ -70,6 +86,8 @@ export const loadConfig = (config: Map<string, string>): ActionType => ({
 });
 
 export const initialState = fromJS({
+  badgeWidth: 8.6,
+  badgeHeight: 5.9,
   headerBackground: '#D90429',
   headerText: '#FFFFFF',
   headerSize: 1,
@@ -90,6 +108,10 @@ export const initialState = fromJS({
 
 export default function reducer(state: StateType = initialState, action: ActionType): StateType {
   switch (action.type) {
+    case CHANGE_BADGE_WIDTH:
+      return state.set('badgeWidth', action.payload.width);
+    case CHANGE_BADGE_HEIGHT:
+      return state.set('badgeHeight', action.payload.height);
     case CHANGE_SIZE:
       return state.set(action.payload.name, action.payload.size);
     case CHANGE_WEIGHT:
