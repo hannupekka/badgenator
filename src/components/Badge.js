@@ -14,6 +14,7 @@ type Props = {
   footerText: ?string,
   width?: string,
   height?: string,
+  margin?: string,
   ui: Map<string, any>,
 }
 
@@ -105,7 +106,9 @@ const Badge: Component<Props> = (props: Props): ElementType => {
       styleName="badge"
       style={{
         width: props.width ? `${props.width}cm` : '8.6cm',
-        height: props.height ? `${props.height}cm` : '5.9cm'
+        height: props.height ? `${props.height}cm` : '5.9cm',
+        marginTop: props.margin ? `${props.margin}rem` : '0.5rem',
+        marginRight: props.margin ? `${props.margin}rem` : '0.5rem'
       }}
     >
       <div

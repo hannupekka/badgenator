@@ -29,6 +29,7 @@ type Props = {
   changeWeight: Function,
   changeBadgeHeight: Function,
   changeBadgeWidth: Function,
+  changeMargin: Function,
   loadConfig: Function,
   setNames: Function
 }
@@ -43,6 +44,8 @@ class Index extends Component {
   names: HTMLInputElement;
   bindWidth: Function;
   width: HTMLInputElement;
+  bindMargin: Function;
+  margin: HTMLInputElement;
 
   constructor(props: Object) {
     super(props);
@@ -50,6 +53,7 @@ class Index extends Component {
     this.bindHeight = (c) => (this.height = c);
     this.bindNames = (c) => (this.names = c);
     this.bindWidth = (c) => (this.width = c);
+    this.bindMargin = (c) => (this.margin = c);
   }
 
   componentDidMount = (): void => {
@@ -86,6 +90,7 @@ class Index extends Component {
 
     const height = this.height.value;
     const width = this.width.value;
+    const margin = this.margin.value;
 
     return names.map(name => (
       <Badge
@@ -96,6 +101,7 @@ class Index extends Component {
         footerText={name.get('footerText')}
         height={height}
         width={width}
+        margin={margin}
       />
     )).toJS();
   }
@@ -236,12 +242,23 @@ class Index extends Component {
     }
   }
 
+  onChangeMargin = (event: InputEvent): void => {
+    const value = event.target.value.replace(',', '.');
+
+    const isNumber = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if (isNumber || value === '') {
+      this.props.changeMargin(value);
+    }
+  }
+
   render() {
     const { ui } = this.props;
     const {
       bindHeight,
       bindNames,
       bindWidth,
+      bindMargin,
       maybeRenderBadges,
       maybeRenderDeleteConfigButton,
       maybeRenderPrintButton,
@@ -251,6 +268,7 @@ class Index extends Component {
       onChangeWeight,
       onChangeBadgeHeight,
       onChangeBadgeWidth,
+      onChangeMargin,
     } = this;
 
     return (
@@ -399,6 +417,7 @@ class Index extends Component {
               footerText="Footer text"
               width={ui.get('badgeWidth').toString()}
               height={ui.get('badgeHeight').toString()}
+              margin="0"
             />
             <div styleName="option__group">
               <h2 styleName="title--top">Other settings</h2>
@@ -442,6 +461,18 @@ class Index extends Component {
               onChange={onChangeBadgeHeight}
             />
           </div>
+          <div styleName="dimensions">
+            <span styleName="option__label">Margin between badges (rem)</span>
+            <input
+              type="number"
+              min="0"
+              step="any"
+              styleName="input--inline"
+              ref={bindMargin}
+              value={ui.get('margin')}
+              onChange={onChangeMargin}
+            />
+          </div>
           <button
             styleName="button"
             onClick={setNames}
@@ -475,6 +506,7 @@ const mapActions = {
   setNames: DataActions.setNames,
   changeBadgeHeight: UiActions.changeBadgeHeight,
   changeBadgeWidth: UiActions.changeBadgeWidth,
+  changeMargin: UiActions.changeMargin,
 };
 
 export default connect(

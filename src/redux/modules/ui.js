@@ -4,6 +4,7 @@ import { fromJS } from 'immutable';
 export const CHANGE_COLOR = 'badgenator/ui/CHANGE_COLOR';
 export const CHANGE_BADGE_WIDTH = 'badgenator/ui/CHANGE_BADGE_WIDTH';
 export const CHANGE_BADGE_HEIGHT = 'badgenator/ui/CHANGE_BADGE_HEIGHT';
+export const CHANGE_MARGIN = 'badgenator/ui/CHANGE_MARGIN';
 export const CHANGE_SIZE = 'badgenator/ui/CHANGE_SIZE';
 export const CHANGE_WEIGHT = 'badgenator/ui/CHANGE_WEIGHT';
 export const CHANGE_LOGO_FILE = 'badgenator/ui/CHANGE_LOGO_FILE';
@@ -23,6 +24,13 @@ export const changeBadgeHeight = (height: number): ActionType => ({
   type: CHANGE_BADGE_HEIGHT,
   payload: {
     height,
+  }
+});
+
+export const changeMargin = (margin: number): ActionType => ({
+  type: CHANGE_MARGIN,
+  payload: {
+    margin,
   }
 });
 
@@ -88,6 +96,7 @@ export const loadConfig = (config: Map<string, string>): ActionType => ({
 export const initialState = fromJS({
   badgeWidth: 8.6,
   badgeHeight: 5.9,
+  margin: 0.5,
   headerBackground: '#D90429',
   headerText: '#FFFFFF',
   headerSize: 1,
@@ -114,6 +123,8 @@ export default function reducer(state: StateType = initialState, action: ActionT
       return state.set('badgeHeight', action.payload.height);
     case CHANGE_SIZE:
       return state.set(action.payload.name, action.payload.size);
+    case CHANGE_MARGIN:
+      return state.set('margin', action.payload.margin);
     case CHANGE_WEIGHT:
       return state.set(action.payload.name, action.payload.weight);
     case CHANGE_COLOR:

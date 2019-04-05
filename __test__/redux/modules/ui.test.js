@@ -36,6 +36,17 @@ describe('actions', () => {
     expect(Ui.changeColor('footerBackground', '#fff000')).toEqual(expected);
   });
 
+  it('should create an action for changing margin', () => {
+    const expected = {
+      type: Ui.CHANGE_MARGIN,
+      payload: {
+        margin: '1.5'
+      }
+    };
+
+    expect(Ui.changeMargin('1.5')).toEqual(expected);
+  });
+
   it('should create an action for changing text size', () => {
     const expected = {
       type: Ui.CHANGE_SIZE,
@@ -112,6 +123,7 @@ describe('actions', () => {
     const config = fromJS({
       badgeWidth: 8.6,
       badgeHeight: 5.9,
+      margin: 1.5,
       headerBackground: '#D90429',
       headerText: '#89d8a5',
       nameBackground: '#7e2bad',
@@ -150,6 +162,21 @@ describe('reducer', () => {
     };
 
     const expected = Ui.initialState.set('footerBackground', '#fff000');
+
+    expect(
+      reducer(Ui.initialState, action)
+    ).toEqual(expected);
+  });
+
+  it('should handle CHANGE_MARGIN', () => {
+    const action = {
+      type: Ui.CHANGE_MARGIN,
+      payload: {
+        margin: '1.5'
+      }
+    };
+
+    const expected = Ui.initialState.set('margin', '1.5');
 
     expect(
       reducer(Ui.initialState, action)
@@ -286,6 +313,7 @@ describe('reducer', () => {
     const config = fromJS({
       badgeWidth: 8.6,
       badgeHeight: 5.9,
+      margin: 1.5,
       headerBackground: '#D90429',
       headerText: '#89d8a5',
       nameBackground: '#7e2bad',
